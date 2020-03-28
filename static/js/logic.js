@@ -6,7 +6,6 @@ var quakeUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_we
 // Perform a GET request to the Earthquake query URL
 d3.json(quakeUrl, function(data) {
   createFeatures(data.features);
-//   console.log(data.features);
 });
 
 function createFeatures(earthquakeData) {
@@ -25,19 +24,19 @@ function createFeatures(earthquakeData) {
 
   // Define function to set the circle color based on the magnitude
   function circleColor(magnitude) {
-    if (magnitude > 5) {
+    if (magnitude >= 5) {
       return "#ea2c2c"
     }
-    else if (magnitude > 4) {
+    else if (magnitude >= 4) {
       return "#ea822c"
     }
-    else if (magnitude > 3) {
+    else if (magnitude >= 3) {
       return "#ee9c00"
     }
-    else if (magnitude > 2) {
+    else if (magnitude >= 2) {
       return "#eecc00"
     }
-    else if (magnitude > 1) {
+    else if (magnitude >= 1) {
       return "#d4ee00"
     }
     else {
@@ -48,15 +47,19 @@ function createFeatures(earthquakeData) {
   // Create a GeoJSON layer containing the features array on the earthquakeData object
   // Run the onEachFeature function once for each piece of data in the array
   var earthquakes = L.geoJSON(earthquakeData, {
-    pointToLayer: function(earthquakeData, latlng) {
+    pointToLayer: function(feature, latlng) {
       return L.circle(latlng, {
-        radius: circleRadius(earthquakeData.properties.mag),
-        color: circleColor(earthquakeData.properties.mag),
+        radius: circleRadius(feature.properties.mag),
+        color: circleColor(feature.properties.mag),
         fillOpacity: 0.8
       });
     },
     onEachFeature: onEachFeature
   });
+  // var earthquakes = L.geoJSON(earthquakeData, {
+  //   onEachFeature: onEachFeature
+  // });
+
 
   // Sending our earthquakes layer to the createMap function
   createMap(earthquakes);
@@ -131,35 +134,27 @@ function createMap(earthquakes) {
     })
 
 
-    // // Create function for Legend colors
-    // function getColor(d) {
-    //     return d > 5  ? '#ff3333' :
-    //            d > 4  ? '#ff6633' :
-    //            d > 3  ? '#ff9933' :
-    //            d > 2  ? '#ffcc33' :
-    //            d > 1  ? '#ffff33' :
-    //                     '#ccff33';
-//   }
+    // Create function for Legend colors
+    // inspiration: https://www.igismap.com/legend-in-leafletjs-map-with-topojson/
+    function getColor(d) {
+        return d > 5  ? '#ea2c2c' :
+               d > 4  ? '#ea822c' :
+               d > 3  ? '#ee9c00' :
+               d > 2  ? '#eecc00' :
+               d > 1  ? '#d4ee00' :
+                        '#98ee00';
+    }
     // Add Legend to map
     var legend = L.control({position: 'bottomright'});
 
     legend.onAdd = function () {
-  
         var div = L.DomUtil.create('div', 'info legend');
-        var grade = [0, 1, 2, 3, 4, 5];
-        var colors = [
-            "#98ee00",
-            "#d4ee00",
-            "#eecc00",
-            "#ee9c00",
-            "#ea822c",
-            "#ea2c2c"
-        ];
+        var grades = [0, 1, 2, 3, 4, 5];
     
         // loop through our density intervals and generate a label with a colored square for each interval
-        for (var i = 0; i < grade.length; i++) {
-            div.innerHTML += "<i style='background: " + colors[i] + "'></i> " +
-            grade[i] + (grade[i + 1] ? '&ndash;' + grade[i + 1] + '<br>' : '+');
+        for (var i = 0; i < grades.length; i++) {
+          div.innerHTML += '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+          grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
         }
     
         return div;
