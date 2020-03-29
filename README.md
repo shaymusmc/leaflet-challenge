@@ -4,13 +4,13 @@ https://shaymusmc.github.io/leaflet-challenge/
 ## Screenshots
 
 ### Landing Page
-![landing page](sreenshot/landing_page.png)
+![landing page](screenshot/landing_page.png)
 
 ### Pop-up Infomration on Earthquake
-![popup](sreenshot/popup.png)
+![popup](screenshot/popup.png)
 
 ### Satellite View with Faultline Activated
-![faultline](sreenshot/faultline.png)
+![faultline](screenshot/faultline.png)
 
 - - -
 
