@@ -6,7 +6,7 @@ https://shaymusmc.github.io/leaflet-challenge/
 ### Landing Page
 ![landing page](screenshot/landing_page.png)
 
-### Pop-up Infomration on Earthquake
+### Pop-up Information on Earthquake
 ![popup](screenshot/popup.png)
 
 ### Satellite View with Faultline Activated
