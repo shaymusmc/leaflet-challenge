@@ -12,6 +12,7 @@ https://shaymusmc.github.io/leaflet-challenge/
 ### Satellite View with Faultline Activated
 ![faultline](sreenshot/faultline.png)
 
+- - -
 
 ## Background
 
@@ -53,15 +54,4 @@ In this step we are going to..
 
 * Add layer controls to our map.
 
-- - -
 
-## Screenshots
-
-### Landing Page
-![landing page](sreenshot/landing_page.png)
-
-### Pop-up Infomration on Earthquake
-![popup](sreenshot/popup.png)
-
-### Satellite View with Faultline Activated
-![faultline](sreenshot/faultline.png)
